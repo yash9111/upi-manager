@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../domain/models/expense_model.dart';
+import '../../../../core/theme/app_colors.dart';
+import '../../domain/utils/expense_grouping_utils.dart';
 import '../providers/expense_provider.dart';
+import '../widgets/date_section_header.dart';
 import '../widgets/expense_tile.dart';
 
-class ExpensesScreen extends ConsumerWidget {
-  const ExpensesScreen({super.key});
+class ExpensesScreen
+    extends ConsumerWidget {
+  const ExpensesScreen({
+    super.key,
+  });
 
   @override
   Widget build(
@@ -17,39 +22,113 @@ class ExpensesScreen extends ConsumerWidget {
       expensesProvider,
     );
 
+    final groupedExpenses =
+        ExpenseGroupingUtils
+            .groupExpensesByDate(
+      expenses,
+    );
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'All Expenses',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
+      body: SafeArea(
+        child: expenses.isEmpty
+            ? const Center(
+                child: Text(
+                  'No expenses yet',
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+              )
+            : CustomScrollView(
+                slivers: [
+                  SliverPadding(
+                    padding:
+                        const EdgeInsets.all(
+                      20,
+                    ),
 
-      body: expenses.isEmpty
-          ? const Center(
-              child: Text(
-                'No expenses yet',
+                    sliver:
+                        SliverToBoxAdapter(
+                      child: Column(
+                        crossAxisAlignment:
+                            CrossAxisAlignment
+                                .start,
+                        children: [
+                          const Text(
+                            'All Expenses',
+                            style:
+                                TextStyle(
+                              fontSize:
+                                  32,
+                              fontWeight:
+                                  FontWeight
+                                      .bold,
+                            ),
+                          ),
+
+                          const SizedBox(
+                            height: 8,
+                          ),
+
+                          Text(
+                            '${expenses.length} total transactions',
+                            style:
+                                const TextStyle(
+                              color: AppColors
+                                  .textSecondary,
+                            ),
+                          ),
+
+                          const SizedBox(
+                            height: 28,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  ...groupedExpenses.entries
+                      .map((entry) {
+                    return SliverPadding(
+                      padding:
+                          const EdgeInsets.symmetric(
+                        horizontal: 20,
+                      ),
+                      sliver:
+                          SliverList(
+                        delegate:
+                            SliverChildListDelegate(
+                          [
+                            DateSectionHeader(
+                              title:
+                                  entry.key,
+                            ),
+
+                            ...entry.value
+                                .map(
+                              (
+                                expense,
+                              ) {
+                                return ExpenseTile(
+                                  expense:
+                                      expense,
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+
+                  const SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 120,
+                    ),
+                  ),
+                ],
               ),
-            )
-          : ListView.builder(
-              padding:
-                  const EdgeInsets.all(20),
-              itemCount: expenses.length,
-              itemBuilder: (
-                context,
-                index,
-              ) {
-                final ExpenseModel expense =
-                    expenses.reversed
-                        .toList()[index];
-
-                return ExpenseTile(
-                  expense: expense,
-                );
-              },
-            ),
+      ),
     );
   }
 }

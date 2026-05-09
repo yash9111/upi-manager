@@ -22,4 +22,26 @@ class SplitParticipantModel {
     required this.amount,
     required this.isSettled,
   });
+  Map<String, dynamic> toJson() {
+  return {
+    'id': id,
+    'name': name,
+    'amount': amount,
+    'isSettled': isSettled,
+  };
+}
+
+factory SplitParticipantModel.fromJson(
+  Map<String, dynamic> json,
+) {
+  return SplitParticipantModel(
+    id: json['id'],
+    name: json['name'],
+    amount:
+        (json['amount'] as num)
+            .toDouble(),
+    isSettled:
+        json['isSettled'],
+  );
+}
 }

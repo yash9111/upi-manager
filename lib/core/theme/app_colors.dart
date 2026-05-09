@@ -5,6 +5,7 @@ class AppColors {
   static const secondary = Color(0xFF7C3AED);
 
   static const background = Color(0xFFF8FAFC);
+  static const border = Color.fromARGB(156, 164, 176, 188);
   static const card = Colors.white;
 
   static const textPrimary = Color(0xFF111827);
