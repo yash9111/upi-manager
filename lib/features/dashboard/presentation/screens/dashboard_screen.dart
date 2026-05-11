@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:upi_tracker/features/dashboard/presentation/widgets/date_filter_section.dart';
+import 'package:upi_tracker/features/dashboard/presentation/widgets/date_range_filter_section.dart';
 import 'package:upi_tracker/features/expenses/domain/expense_filter_utils.dart';
 import 'package:upi_tracker/features/expenses/presentation/providers/date_filter_provider.dart';
 
@@ -24,12 +25,13 @@ class DashboardScreen extends ConsumerWidget {
     final selectedTimeFilter = ref.watch(expenseTimeFilterProvider);
 
     final selectedCategoryFilter = ref.watch(expenseCategoryFilterProvider);
-    final selectedDate = ref.watch(selectedDateFilterProvider);
+    final selectedDateRange = ref.watch(selectedDateRangeProvider);
     final filteredExpenses = ExpenseFilterUtils.filterExpenses(
       expenses: expenses,
       timeFilter: selectedTimeFilter,
       categoryFilter: selectedCategoryFilter,
-      selectedDate: selectedDate,
+      selectedDateRange:
+    selectedDateRange,
     );
 
     final totalSpend = DashboardAnalyticsUtils.calculateTotalSpend(
@@ -49,7 +51,7 @@ class DashboardScreen extends ConsumerWidget {
             MaterialPageRoute(builder: (_) => const AddExpenseScreen()),
           );
         },
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.add,color: Colors.white,),
       ),
 
       body: SafeArea(
@@ -170,7 +172,7 @@ class DashboardScreen extends ConsumerWidget {
                     ),
 
                     const SizedBox(height: 14),
-                    const DateFilterSection(),
+                    const DateRangeFilterSection(),
 
                     const SizedBox(height: 22),
                     // CATEGORY FILTERS

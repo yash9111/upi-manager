@@ -1,6 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final selectedDateFilterProvider =
-    StateProvider<DateTime?>((ref) {
+import '../../domain/models/date_range_filter_model.dart';
+
+final selectedDateRangeProvider =
+    StateProvider<
+        DateRangeFilterModel?>((ref) {
   return null;
 });

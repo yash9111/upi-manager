@@ -1,30 +1,71 @@
 import 'package:upi_tracker/features/expenses/domain/enums/expense_category_filter.dart';
 import 'package:upi_tracker/features/expenses/domain/enums/expense_filter_type.dart';
+import 'package:upi_tracker/features/expenses/domain/models/date_range_filter_model.dart';
 import 'package:upi_tracker/features/expenses/domain/models/expense_model.dart';
-
 
 class ExpenseFilterUtils {
   static List<ExpenseModel> filterExpenses({
     required List<ExpenseModel> expenses,
     required ExpenseFilterType timeFilter,
     required ExpenseCategoryFilter categoryFilter,
-    required DateTime? selectedDate,
+    required DateRangeFilterModel?
+        selectedDateRange,
   }) {
     List<ExpenseModel> filtered =
         List.from(expenses);
 
     final now = DateTime.now();
 
-    // DATE FILTER (HIGHEST PRIORITY)
+    // DATE RANGE FILTER
 
-    if (selectedDate != null) {
-      filtered = filtered.where((expense) {
-        return expense.createdAt.day ==
-                selectedDate.day &&
-            expense.createdAt.month ==
-                selectedDate.month &&
-            expense.createdAt.year ==
-                selectedDate.year;
+    if (selectedDateRange != null) {
+      filtered = filtered.where((
+        expense,
+      ) {
+        final expenseDate =
+            DateTime(
+          expense.createdAt.year,
+          expense.createdAt.month,
+          expense.createdAt.day,
+        );
+
+        final start =
+            DateTime(
+          selectedDateRange
+              .startDate
+              .year,
+          selectedDateRange
+              .startDate
+              .month,
+          selectedDateRange
+              .startDate
+              .day,
+        );
+
+        final end = DateTime(
+          selectedDateRange
+              .endDate
+              .year,
+          selectedDateRange
+              .endDate
+              .month,
+          selectedDateRange
+              .endDate
+              .day,
+        );
+
+        return (expenseDate
+                    .isAfter(
+                      start,
+                    ) ||
+                expenseDate ==
+                    start) &&
+            (expenseDate
+                    .isBefore(
+                      end,
+                    ) ||
+                expenseDate ==
+                    end);
       }).toList();
     }
 
@@ -32,30 +73,43 @@ class ExpenseFilterUtils {
 
     switch (timeFilter) {
       case ExpenseFilterType.today:
-        filtered = filtered.where((expense) {
-          return expense.createdAt.day ==
+        filtered = filtered.where((
+          expense,
+        ) {
+          return expense
+                      .createdAt.day ==
                   now.day &&
-              expense.createdAt.month ==
+              expense.createdAt
+                      .month ==
                   now.month &&
-              expense.createdAt.year ==
+              expense.createdAt
+                      .year ==
                   now.year;
         }).toList();
 
       case ExpenseFilterType.weekly:
-        filtered = filtered.where((expense) {
+        filtered = filtered.where((
+          expense,
+        ) {
           return now
                   .difference(
-                    expense.createdAt,
+                    expense
+                        .createdAt,
                   )
                   .inDays <=
               7;
         }).toList();
 
       case ExpenseFilterType.monthly:
-        filtered = filtered.where((expense) {
-          return expense.createdAt.month ==
+        filtered = filtered.where((
+          expense,
+        ) {
+          return expense
+                      .createdAt
+                      .month ==
                   now.month &&
-              expense.createdAt.year ==
+              expense.createdAt
+                      .year ==
                   now.year;
         }).toList();
 
@@ -67,32 +121,47 @@ class ExpenseFilterUtils {
 
     switch (categoryFilter) {
       case ExpenseCategoryFilter.food:
-        filtered = filtered.where((expense) {
-          return expense.category ==
+        filtered = filtered.where((
+          expense,
+        ) {
+          return expense
+                  .category ==
               'Food';
         }).toList();
 
       case ExpenseCategoryFilter.travel:
-        filtered = filtered.where((expense) {
-          return expense.category ==
+        filtered = filtered.where((
+          expense,
+        ) {
+          return expense
+                  .category ==
               'Travel';
         }).toList();
 
       case ExpenseCategoryFilter.shopping:
-        filtered = filtered.where((expense) {
-          return expense.category ==
+        filtered = filtered.where((
+          expense,
+        ) {
+          return expense
+                  .category ==
               'Shopping';
         }).toList();
 
       case ExpenseCategoryFilter.bills:
-        filtered = filtered.where((expense) {
-          return expense.category ==
+        filtered = filtered.where((
+          expense,
+        ) {
+          return expense
+                  .category ==
               'Bills';
         }).toList();
 
       case ExpenseCategoryFilter.entertainment:
-        filtered = filtered.where((expense) {
-          return expense.category ==
+        filtered = filtered.where((
+          expense,
+        ) {
+          return expense
+                  .category ==
               'Entertainment';
         }).toList();
 
@@ -100,10 +169,11 @@ class ExpenseFilterUtils {
         break;
     }
 
-    // SORT DESCENDING
+    // SORT DESC
 
     filtered.sort(
-      (a, b) => b.createdAt.compareTo(
+      (a, b) => b.createdAt
+          .compareTo(
         a.createdAt,
       ),
     );
