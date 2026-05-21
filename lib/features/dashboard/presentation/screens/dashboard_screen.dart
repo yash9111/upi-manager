@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:upi_tracker/features/budget/presentation/widgets/dashboard_budget_widget.dart';
+import 'package:upi_tracker/features/category/presentation/providers/category_provider.dart';
 import 'package:upi_tracker/features/dashboard/presentation/widgets/date_filter_section.dart';
 import 'package:upi_tracker/features/dashboard/presentation/widgets/date_range_filter_section.dart';
 import 'package:upi_tracker/features/expenses/domain/expense_filter_utils.dart';
@@ -30,8 +32,7 @@ class DashboardScreen extends ConsumerWidget {
       expenses: expenses,
       timeFilter: selectedTimeFilter,
       categoryFilter: selectedCategoryFilter,
-      selectedDateRange:
-    selectedDateRange,
+      selectedDateRange: selectedDateRange,
     );
 
     final totalSpend = DashboardAnalyticsUtils.calculateTotalSpend(
@@ -42,6 +43,12 @@ class DashboardScreen extends ConsumerWidget {
       filteredExpenses,
     );
 
+    final weeklySpend = DashboardAnalyticsUtils.calculateWeeklySpend(
+      filteredExpenses,
+    );
+
+    final categories = ref.watch(categoriesProvider);
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.primary,
@@ -51,7 +58,7 @@ class DashboardScreen extends ConsumerWidget {
             MaterialPageRoute(builder: (_) => const AddExpenseScreen()),
           );
         },
-        child: const Icon(Icons.add,color: Colors.white,),
+        child: const Icon(Icons.add, color: Colors.white),
       ),
 
       body: SafeArea(
@@ -184,43 +191,74 @@ class DashboardScreen extends ConsumerWidget {
                           buildCategoryChip(
                             ref,
                             'All',
-                            ExpenseCategoryFilter.all,
+                            null,
                             selectedCategoryFilter,
                           ),
 
-                          buildCategoryChip(
-                            ref,
-                            'Food',
-                            ExpenseCategoryFilter.food,
-                            selectedCategoryFilter,
+                          ...categories.map((category) {
+                            return buildCategoryChip(
+                              ref,
+                              category.name,
+                              category.name,
+                              selectedCategoryFilter,
+                            );
+                          }),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 26),
+
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(24),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(32),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Overview',
+                            style: TextStyle(color: AppColors.textSecondary),
                           ),
 
-                          buildCategoryChip(
-                            ref,
-                            'Travel',
-                            ExpenseCategoryFilter.travel,
-                            selectedCategoryFilter,
+                          const SizedBox(height: 10),
+
+                          Text(
+                            '₹${totalSpend.toStringAsFixed(0)}',
+                            style: const TextStyle(
+                              fontSize: 34,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
 
-                          buildCategoryChip(
-                            ref,
-                            'Shopping',
-                            ExpenseCategoryFilter.shopping,
-                            selectedCategoryFilter,
-                          ),
+                          const SizedBox(height: 28),
 
-                          buildCategoryChip(
-                            ref,
-                            'Bills',
-                            ExpenseCategoryFilter.bills,
-                            selectedCategoryFilter,
+                          Row(
+                            children: [
+                              Expanded(
+                                child: buildDashboardMetric(
+                                  'Monthly',
+                                  monthlySpend,
+                                ),
+                              ),
+
+                              const SizedBox(width: 14),
+
+                              Expanded(
+                                child: buildDashboardMetric(
+                                  'Weekly',
+                                  weeklySpend,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
                     ),
 
-                    const SizedBox(height: 26),
-
+                    const SizedBox(height: 24),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -267,6 +305,29 @@ class DashboardScreen extends ConsumerWidget {
     );
   }
 
+  Widget buildDashboardMetric(String title, double value) {
+    return Container(
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        color: AppColors.background,
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(title, style: const TextStyle(color: AppColors.textSecondary)),
+
+          const SizedBox(height: 8),
+
+          Text(
+            '₹${value.toStringAsFixed(0)}',
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget buildTimeChip(
     WidgetRef ref,
     String label,
@@ -288,8 +349,8 @@ class DashboardScreen extends ConsumerWidget {
   Widget buildCategoryChip(
     WidgetRef ref,
     String label,
-    ExpenseCategoryFilter category,
-    ExpenseCategoryFilter selected,
+    String? category,
+    String? selected,
   ) {
     return Padding(
       padding: const EdgeInsets.only(right: 10),

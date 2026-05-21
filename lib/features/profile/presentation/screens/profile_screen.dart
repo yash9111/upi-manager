@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:upi_tracker/features/category/presentation/providers/category_provider.dart';
+import 'package:upi_tracker/features/category/presentation/widgets/add_category_dialog.dart';
+import 'package:upi_tracker/features/category/presentation/widgets/category_tile.dart';
 import 'package:upi_tracker/features/profile/presentation/provider/saved_people_provider.dart';
 
 import '../../../../core/services/backup_service.dart';
@@ -15,6 +18,7 @@ class ProfileScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final people = ref.watch(savedPeopleProvider);
+    final categories = ref.watch(categoriesProvider);
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -27,7 +31,7 @@ class ProfileScreen extends ConsumerWidget {
             },
           );
         },
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.add, color: Colors.white),
       ),
 
       body: SafeArea(
@@ -185,6 +189,77 @@ class ProfileScreen extends ConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Text(
+                          'Expense Categories',
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+
+                        GestureDetector(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (_) {
+                                return const AddCategoryDialog();
+                              },
+                            );
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 14,
+                              vertical: 10,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColors.primary,
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: const Row(
+                              children: [
+                                Icon(Icons.add, color: Colors.white, size: 18),
+
+                                SizedBox(width: 8),
+
+                                Text(
+                                  'Add',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 18),
+
+                    ListView.builder(
+                      itemCount: categories.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        final category = categories[index];
+
+                        return CategoryTile(
+                          title: category.name,
+                          isDefault: category.isDefault,
+                          onDelete: () async {
+                            await ref
+                                .read(categoriesProvider.notifier)
+                                .deleteCategory(category.id);
+                          },
+                        );
+                      },
+                    ),
+
+                    const SizedBox(height: 30),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
                           'Saved People',
                           style: TextStyle(
                             fontSize: 22,
@@ -211,8 +286,7 @@ class ProfileScreen extends ConsumerWidget {
                         ),
                       ],
                     ),
-
-                    const SizedBox(height: 20),
+                    // const SizedBox(height: 32),
                   ],
                 ),
               ),

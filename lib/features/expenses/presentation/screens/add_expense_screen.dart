@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:upi_tracker/features/category/presentation/providers/category_provider.dart';
 import 'package:upi_tracker/features/expenses/presentation/providers/temp_participants_provider.dart';
 import 'package:upi_tracker/features/expenses/presentation/widgets/participants_section.dart';
 import 'package:uuid/uuid.dart';
@@ -24,13 +25,16 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
 
   bool isShared = false;
 
-  final categories = ['Food', 'Travel', 'Shopping', 'Bills', 'Entertainment'];
-
-  String selectedCategory = 'Food';
+  String selectedCategory = '';
   DateTime selectedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
+    final categories = ref.watch(categoriesProvider);
+
+    if (selectedCategory.isEmpty && categories.isNotEmpty) {
+      selectedCategory = categories.first.name;
+    }
     return Scaffold(
       appBar: AppBar(title: const Text('Add Expense')),
       body: SingleChildScrollView(
@@ -68,8 +72,8 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
                 underline: const SizedBox(),
                 items: categories.map((category) {
                   return DropdownMenuItem(
-                    value: category,
-                    child: Text(category),
+                    value: category.name,
+                    child: Text(category.name),
                   );
                 }).toList(),
                 onChanged: (value) {
@@ -157,18 +161,17 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
   }
 
   Future<void> pickDate() async {
-  final pickedDate =
-      await showDatePicker(
-    context: context,
-    firstDate: DateTime(2020),
-    lastDate: DateTime.now(),
-    initialDate: selectedDate,
-  );
+    final pickedDate = await showDatePicker(
+      context: context,
+      firstDate: DateTime(2020),
+      lastDate: DateTime.now(),
+      initialDate: selectedDate,
+    );
 
-  if (pickedDate != null) {
-    setState(() {
-      selectedDate = pickedDate;
-    });
+    if (pickedDate != null) {
+      setState(() {
+        selectedDate = pickedDate;
+      });
+    }
   }
-}
 }

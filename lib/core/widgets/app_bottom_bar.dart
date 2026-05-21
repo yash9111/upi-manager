@@ -33,8 +33,7 @@ class AppBottomBar extends StatelessWidget {
         elevation: 0,
         height: 75,
         selectedIndex: currentIndex,
-        indicatorColor:
-            AppColors.primary.withOpacity(0.12),
+        indicatorColor: AppColors.primary.withOpacity(0.12),
         onDestinationSelected: onTap,
         destinations: const [
           NavigationDestination(
@@ -43,14 +42,19 @@ class AppBottomBar extends StatelessWidget {
             label: 'Home',
           ),
           NavigationDestination(
+            icon: Icon(Icons.savings_outlined),
+            selectedIcon: Icon(Icons.savings),
+            label: 'Budget',
+          ),
+
+          NavigationDestination(
             icon: Icon(Icons.group_outlined),
             selectedIcon: Icon(Icons.group),
             label: 'Splits',
           ),
           NavigationDestination(
             icon: Icon(Icons.receipt_long_outlined),
-            selectedIcon:
-                Icon(Icons.receipt_long),
+            selectedIcon: Icon(Icons.receipt_long),
             label: 'Expenses',
           ),
           NavigationDestination(

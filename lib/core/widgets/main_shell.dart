@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:upi_tracker/features/budget/presentation/screens/budget_screen.dart';
 import 'package:upi_tracker/features/expenses/presentation/screens/expense_screen.dart';
 
 import '../../features/dashboard/presentation/screens/dashboard_screen.dart';
@@ -20,6 +21,7 @@ class _MainShellState
 
   final screens = const [
     DashboardScreen(),
+    BudgetScreen(),
     SplitsScreen(),
     ExpensesScreen(),
     ProfileScreen(),
