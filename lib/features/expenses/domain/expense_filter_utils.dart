@@ -1,4 +1,3 @@
-import 'package:upi_tracker/features/expenses/domain/enums/expense_category_filter.dart';
 import 'package:upi_tracker/features/expenses/domain/enums/expense_filter_type.dart';
 import 'package:upi_tracker/features/expenses/domain/models/date_range_filter_model.dart';
 import 'package:upi_tracker/features/expenses/domain/models/expense_model.dart';
