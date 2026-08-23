@@ -47,6 +47,11 @@ class AppBottomBar extends StatelessWidget {
             label: 'Budget',
           ),
 
+          // NavigationDestination(
+          //   icon: Icon(Icons.auto_graph_outlined),
+          //   selectedIcon: Icon(Icons.auto_graph_rounded),
+          //   label: 'Analytics',
+          // ),
           NavigationDestination(
             icon: Icon(Icons.group_outlined),
             selectedIcon: Icon(Icons.group),

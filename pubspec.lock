@@ -286,6 +286,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.6.1"
+  flutter_sms_reader:
+    dependency: "direct main"
+    description:
+      name: flutter_sms_reader
+      sha256: "7819a43db14e19fa99ddbb68b80dce4e3b487b007fcbeb5c5d3b2dbd226aa77d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -861,6 +869,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.2"
+  transaction_sms_parser:
+    dependency: "direct main"
+    description:
+      name: transaction_sms_parser
+      sha256: eeaf2ab006defcc4026bee0c878223dc7ec3e173f1eb51fe632da98f96ba0584
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1"
   typed_data:
     dependency: transitive
     description:

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:upi_tracker/features/budget/domain/utils/budget_insight_calculator.dart';
 import 'package:upi_tracker/features/budget/presentation/providers/budget_month_provider.dart';
 import 'package:upi_tracker/features/budget/presentation/widgets/budget_month_selector.dart';
 import 'package:upi_tracker/features/budget/presentation/widgets/budget_summary_card.dart';
@@ -29,19 +30,11 @@ class BudgetScreen extends ConsumerWidget {
     double totalBudget = 0;
     double totalSpent = 0;
 
-    for (final budget in filteredBudgets) {
-      final spent = expenses
-          .where(
-            (expense) =>
-                expense.category == budget.category &&
-                expense.createdAt.month == budget.month &&
-                expense.createdAt.year == budget.year,
-          )
-          .fold<double>(0, (sum, expense) => sum + expense.myShare);
-
-      totalBudget += budget.amount;
-      totalSpent += spent;
-    }
+    final insights = BudgetInsightCalculator.calculate(
+      expenses: expenses,
+      budgets: filteredBudgets,
+      month: selectedMonth,
+    );
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -80,10 +73,7 @@ class BudgetScreen extends ConsumerWidget {
 
                     const SizedBox(height: 20),
 
-                    BudgetSummaryCard(
-                      totalBudget: totalBudget,
-                      totalSpent: totalSpent,
-                    ),
+                    BudgetSummaryCard(insights: insights),
 
                     const SizedBox(height: 20),
 

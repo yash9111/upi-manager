@@ -1,6 +1,7 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:upi_tracker/features/budget/domain/models/budget_model.dart';
 import 'package:upi_tracker/features/category/domain/model/category_model.dart';
+import 'package:upi_tracker/features/imported_transactions/data/models/imported_transaction_model.dart';
 
 import '../../features/expenses/domain/models/expense_model.dart';
 import '../../features/profile/domain/models/saved_person_model.dart';
@@ -23,6 +24,9 @@ class HiveService {
     
     Hive.registerAdapter(BudgetModelAdapter());
 
+    Hive.registerAdapter(
+    ImportedTransactionModelAdapter(),
+  );
     await Hive.openBox<ExpenseModel>(HiveBoxes.expenses);
 
     await Hive.openBox<SavedPersonModel>(HiveBoxes.savedPeople);

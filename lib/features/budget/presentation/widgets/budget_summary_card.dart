@@ -1,250 +1,216 @@
 import 'package:flutter/material.dart';
+import 'package:upi_tracker/features/budget/domain/models/budget_insight_model.dart';
 
 import '../../../../core/theme/app_colors.dart';
 
-class BudgetSummaryCard
-    extends StatelessWidget {
-  final double totalBudget;
+class BudgetSummaryCard extends StatelessWidget {
+  final BudgetInsightModel insights;
 
-  final double totalSpent;
-
-  const BudgetSummaryCard({
-    super.key,
-    required this.totalBudget,
-    required this.totalSpent,
-  });
+  const BudgetSummaryCard({super.key, required this.insights});
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
-    final remaining =
-        totalBudget - totalSpent;
+  Widget build(BuildContext context) {
+    final percentage = (insights.progress * 100)
+        .clamp(0, 100)
+        .toStringAsFixed(0);
 
-    final progress =
-        totalBudget == 0
-            ? 0.0
-            : (totalSpent / totalBudget)
-                .clamp(0.0, 1.0);
-
-    final percent =
-        (progress * 100)
-            .toStringAsFixed(0);
+    final overspending = insights.projectedDifference > 0;
 
     return Container(
-      padding:
-          const EdgeInsets.all(
-        24,
-      ),
+      padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius:
-            BorderRadius.circular(
-          32,
-        ),
+        borderRadius: BorderRadius.circular(32),
       ),
       child: Column(
-        crossAxisAlignment:
-            CrossAxisAlignment
-                .start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
               Container(
-                padding:
-                    const EdgeInsets.all(
-                  12,
-                ),
-                decoration:
-                    BoxDecoration(
-                  color:
-                      AppColors
-                          .softPrimary,
-                  borderRadius:
-                      BorderRadius.circular(
-                    18,
-                  ),
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: AppColors.softPrimary,
+                  borderRadius: BorderRadius.circular(18),
                 ),
                 child: const Icon(
-                  Icons
-                      .account_balance_wallet_outlined,
-                  color:
-                      AppColors
-                          .primary,
+                  Icons.savings_outlined,
+                  color: AppColors.primary,
                 ),
               ),
 
-              const SizedBox(
-                width: 14,
-              ),
+              const SizedBox(width: 14),
 
               const Expanded(
                 child: Column(
-                  crossAxisAlignment:
-                      CrossAxisAlignment
-                          .start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Budget Overview',
-                      style:
-                          TextStyle(
-                        fontSize:
-                            20,
-                        fontWeight:
-                            FontWeight
-                                .bold,
+                      'Monthly Budget',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(
-                      height: 4,
-                    ),
+
+                    SizedBox(height: 4),
+
                     Text(
-                      'Current month spending',
-                      style:
-                          TextStyle(
-                        color:
-                            AppColors
-                                .textSecondary,
-                      ),
+                      'Financial health overview',
+                      style: TextStyle(color: AppColors.textSecondary),
                     ),
                   ],
                 ),
               ),
 
               Container(
-                padding:
-                    const EdgeInsets.symmetric(
-                  horizontal:
-                      14,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
                   vertical: 8,
                 ),
-                decoration:
-                    BoxDecoration(
-                  color:
-                      AppColors
-                          .softPrimary,
-                  borderRadius:
-                      BorderRadius.circular(
-                    30,
-                  ),
+                decoration: BoxDecoration(
+                  color: AppColors.softPrimary,
+                  borderRadius: BorderRadius.circular(24),
                 ),
                 child: Text(
-                  '$percent%',
-                  style:
-                      const TextStyle(
-                    color:
-                        AppColors
-                            .primary,
-                    fontWeight:
-                        FontWeight
-                            .bold,
+                  '$percentage%',
+                  style: const TextStyle(
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
             ],
           ),
 
-          const SizedBox(
-            height: 28,
+          const SizedBox(height: 26),
+
+          Text(
+            '₹${insights.totalSpent.toStringAsFixed(0)}',
+            style: const TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
           ),
+
+          const SizedBox(height: 4),
+
+          Text(
+            'of ₹${insights.totalBudget.toStringAsFixed(0)} budget used',
+            style: const TextStyle(color: AppColors.textSecondary),
+          ),
+
+          const SizedBox(height: 22),
 
           ClipRRect(
-            borderRadius:
-                BorderRadius.circular(
-              20,
-            ),
-            child:
-                LinearProgressIndicator(
-              value: progress,
+            borderRadius: BorderRadius.circular(20),
+            child: LinearProgressIndicator(
+              value: insights.progress.clamp(0, 1),
               minHeight: 12,
-              backgroundColor:
-                  AppColors.border,
             ),
           ),
 
-          const SizedBox(
-            height: 26,
-          ),
+          const SizedBox(height: 24),
 
           Row(
             children: [
               Expanded(
-                child:
-                    buildMetricCard(
-                  title:
-                      'Spent',
-                  value:
-                      '₹${totalSpent.toStringAsFixed(0)}',
+                child: buildMetric(
+                  title: 'Remaining',
+                  value: '₹${insights.remaining.abs().toStringAsFixed(0)}',
                 ),
               ),
 
-              const SizedBox(
-                width: 14,
-              ),
+              const SizedBox(width: 14),
 
               Expanded(
-                child:
-                    buildMetricCard(
-                  title:
-                      remaining >= 0
-                          ? 'Remaining'
-                          : 'Overspent',
-                  value:
-                      '₹${remaining.abs().toStringAsFixed(0)}',
+                child: buildMetric(
+                  title: 'Top Category',
+                  value: insights.topCategory,
                 ),
               ),
             ],
           ),
+
+          const SizedBox(height: 18),
+
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(18),
+            decoration: BoxDecoration(
+              color: overspending
+                  ? AppColors.softDanger
+                  : AppColors.softSuccess,
+              borderRadius: BorderRadius.circular(24),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  overspending ? 'Projected Overspend' : 'Projected Month End',
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+
+                const SizedBox(height: 8),
+
+                Text(
+                  '₹${insights.projectedMonthEndSpend.toStringAsFixed(0)}',
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+
+                const SizedBox(height: 6),
+
+                Text(
+                  overspending
+                      ? 'Likely to exceed budget by ₹${insights.projectedDifference.toStringAsFixed(0)}'
+                      : 'You are currently on track',
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget buildMetricCard({
-    required String title,
-    required String value,
-  }) {
+  Widget buildMetric({required String title, required String value}) {
     return Container(
-      padding:
-          const EdgeInsets.all(
-        18,
-      ),
+      padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
-        color:
-            AppColors.background,
-        borderRadius:
-            BorderRadius.circular(
-          24,
-        ),
+        color: AppColors.background,
+        borderRadius: BorderRadius.circular(24),
       ),
       child: Column(
-        crossAxisAlignment:
-            CrossAxisAlignment
-                .start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: const TextStyle(
-              color:
-                  AppColors
-                      .textSecondary,
-            ),
-          ),
-
-          const SizedBox(
-            height: 8,
-          ),
-
-          Text(
-            value,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight:
-                  FontWeight.bold,
-            ),
-          ),
+          Text(title, style: const TextStyle(color: AppColors.textSecondary)),
+          const SizedBox(height: 8),
+          Text(value, style: const TextStyle(fontWeight: FontWeight.bold)),
         ],
       ),
     );
   }
+}
+
+Widget buildMetricCard({required String title, required String value}) {
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: BoxDecoration(
+      color: AppColors.background,
+      borderRadius: BorderRadius.circular(24),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(title, style: const TextStyle(color: AppColors.textSecondary)),
+
+        const SizedBox(height: 8),
+
+        Text(
+          value,
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+      ],
+    ),
+  );
 }

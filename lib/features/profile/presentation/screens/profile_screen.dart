@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:upi_tracker/core/widgets/app_primary_button.dart';
+import 'package:upi_tracker/features/analytics/presentation/screens/analytics_screen.dart';
 import 'package:upi_tracker/features/category/presentation/providers/category_provider.dart';
 import 'package:upi_tracker/features/category/presentation/widgets/add_category_dialog.dart';
 import 'package:upi_tracker/features/category/presentation/widgets/category_tile.dart';
@@ -313,6 +315,22 @@ class ProfileScreen extends ConsumerWidget {
                       },
                     ),
                   ),
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+              sliver: SliverToBoxAdapter(
+                child: AppPrimaryButton(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const AnalyticsScreen(),
+                      ),
+                    );
+                  },
+                  text: 'Open Analytics',
+                ),
+              ),
+            ),
 
             const SliverToBoxAdapter(child: SizedBox(height: 120)),
           ],
