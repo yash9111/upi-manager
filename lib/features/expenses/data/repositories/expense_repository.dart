@@ -13,6 +13,10 @@ class ExpenseRepository {
     return _expenseBox.values.toList();
   }
 
+  Future<bool> exists(String expenseId) async {
+    return _expenseBox.containsKey(expenseId);
+  }
+
   Future<void> addExpense(
     ExpenseModel expense,
   ) async {
@@ -30,11 +34,12 @@ class ExpenseRepository {
       expense,
     );
   }
+
   Future<void> deleteExpense(
-  String expenseId,
-) async {
-  await _expenseBox.delete(
-    expenseId,
-  );
-}
+    String expenseId,
+  ) async {
+    await _expenseBox.delete(
+      expenseId,
+    );
+  }
 }

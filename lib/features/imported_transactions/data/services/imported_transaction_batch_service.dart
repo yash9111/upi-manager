@@ -14,6 +14,10 @@ class BatchImportResult {
   final int? packageParsed;
   final int? fallbackParsed;
 
+  /// IDs of transactions that were actually imported
+  /// during this specific batch operation.
+  final List<String> importedTransactionIds;
+
   const BatchImportResult({
     required this.totalSms,
     required this.candidateSms,
@@ -21,6 +25,7 @@ class BatchImportResult {
     required this.imported,
     required this.duplicates,
     required this.failed,
+    required this.importedTransactionIds,
     this.packageParsed,
     this.fallbackParsed,
   });
@@ -52,6 +57,8 @@ class ImportedTransactionBatchService {
     int duplicates = 0;
     int failed = 0;
 
+    final List<String> importedTransactionIds = [];
+
     for (final message in messages) {
       final transaction = parser.parseSms(
         sender: message.address ?? '',
@@ -67,20 +74,17 @@ class ImportedTransactionBatchService {
       candidateSms++;
       parsed++;
 
-      final exists = await repository.exists(
-        transaction.id,
-      );
+      final exists = await repository.exists(transaction.id);
 
       if (exists) {
         duplicates++;
         continue;
       }
 
-      await repository.save(
-        transaction,
-      );
+      await repository.save(transaction);
 
       imported++;
+      importedTransactionIds.add(transaction.id);
     }
 
     return BatchImportResult(
@@ -90,6 +94,7 @@ class ImportedTransactionBatchService {
       imported: imported,
       duplicates: duplicates,
       failed: failed,
+      importedTransactionIds: importedTransactionIds,
     );
   }
 }
