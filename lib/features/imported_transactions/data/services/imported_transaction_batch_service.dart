@@ -21,7 +21,7 @@ class BatchImportResult {
   const BatchImportResult({
     required this.totalSms,
     required this.candidateSms,
-    required this.parsed,
+    required this.parsed, 
     required this.imported,
     required this.duplicates,
     required this.failed,

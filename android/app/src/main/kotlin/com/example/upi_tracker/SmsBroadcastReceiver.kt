@@ -4,87 +4,159 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.provider.Telephony
+import org.json.JSONArray
+import org.json.JSONObject
+import java.util.UUID
 import android.util.Log
 
 class SmsBroadcastReceiver : BroadcastReceiver() {
 
     companion object {
-        private const val TAG = "SmsBroadcastReceiver"
+        private const val PREFS_NAME =
+            "upi_tracker_sms_queue"
 
-        const val ACTION_NEW_SMS =
-            "com.example.upi_tracker.NEW_SMS"
+        private const val QUEUE_KEY =
+            "pending_sms"
 
-        const val EXTRA_SENDER = "sender"
-        const val EXTRA_BODY = "body"
-        const val EXTRA_TIMESTAMP = "timestamp"
+        private const val MAX_QUEUE_SIZE = 500
     }
 
-    override fun onReceive(
-        context: Context,
-        intent: Intent
+   override fun onReceive(
+    context: Context,
+    intent: Intent
+) {
+    Log.d(
+        "UPI_SMS",
+        "Broadcast received: ${intent.action}"
+    )
+
+    if (
+        intent.action !=
+        Telephony.Sms.Intents.SMS_RECEIVED_ACTION
     ) {
-        if (intent.action != Telephony.Sms.Intents.SMS_RECEIVED_ACTION) {
-            return
+        Log.d(
+            "UPI_SMS",
+            "Ignoring unrelated broadcast"
+        )
+        return
+    }
+
+    val messages =
+        Telephony.Sms.Intents
+            .getMessagesFromIntent(intent)
+
+    Log.d(
+        "UPI_SMS",
+        "Messages received: ${messages?.size ?: 0}"
+    )
+
+    if (messages.isNullOrEmpty()) {
+        return
+    }
+
+    val body = buildString {
+        messages.forEach { message ->
+            append(message.messageBody ?: "")
         }
+    }.trim()
 
-        val messages =
-            Telephony.Sms.Intents.getMessagesFromIntent(intent)
-
-        if (messages.isNullOrEmpty()) {
-            return
-        }
-
-        /*
-         * A single SMS can contain multiple PDUs.
-         * Combine their bodies into one logical message.
-         */
-        val body = buildString {
-            messages.forEach { message ->
-                append(message.messageBody ?: "")
-            }
-        }.trim()
-
-        if (body.isEmpty()) {
-            return
-        }
-
-        val sender = messages.firstOrNull()
+    val sender =
+        messages.firstOrNull()
             ?.originatingAddress
             .orEmpty()
 
-        val timestamp = messages.firstOrNull()
+    val timestamp =
+        messages.firstOrNull()
             ?.timestampMillis
             ?: System.currentTimeMillis()
 
-        Log.d(
-            TAG,
-            "Incoming SMS from=$sender"
-        )
+    Log.d(
+        "UPI_SMS",
+        "Sender: $sender"
+    )
 
-        /*
-         * Send a private application broadcast.
-         *
-         * The Flutter side will listen for this event.
-         */
-        val newSmsIntent = Intent(ACTION_NEW_SMS).apply {
-            setPackage(context.packageName)
+    Log.d(
+        "UPI_SMS",
+        "Body: $body"
+    )
 
-            putExtra(
-                EXTRA_SENDER,
-                sender
+    saveToPendingQueue(
+        context = context,
+        sender = sender,
+        body = body,
+        timestamp = timestamp,
+    )
+
+    Log.d(
+        "UPI_SMS",
+        "SMS saved to native queue"
+    )
+}
+    private fun saveToPendingQueue(
+        context: Context,
+        sender: String,
+        body: String,
+        timestamp: Long,
+    ) {
+        val preferences =
+            context.getSharedPreferences(
+                PREFS_NAME,
+                Context.MODE_PRIVATE,
             )
 
-            putExtra(
-                EXTRA_BODY,
-                body
+        val stored =
+            preferences.getString(
+                QUEUE_KEY,
+                null,
             )
 
-            putExtra(
-                EXTRA_TIMESTAMP,
-                timestamp
+        val queue =
+            if (stored.isNullOrEmpty()) {
+                JSONArray()
+            } else {
+                try {
+                    JSONArray(stored)
+                } catch (_: Exception) {
+                    JSONArray()
+                }
+            }
+
+        if (queue.length() >= MAX_QUEUE_SIZE) {
+            queue.remove(0)
+        }
+
+        val sms = JSONObject().apply {
+            put(
+                "id",
+                UUID.randomUUID().toString(),
+            )
+
+            put(
+                "sender",
+                sender,
+            )
+
+            put(
+                "body",
+                body,
+            )
+
+            put(
+                "timestamp",
+                timestamp,
             )
         }
 
-        context.sendBroadcast(newSmsIntent)
+        queue.put(sms)
+Log.d(
+    "UPI_SMS",
+    "Saving SMS to queue"
+)
+        preferences.edit()
+            .putString(
+                QUEUE_KEY,
+                queue.toString(),
+            )
+            .apply()
     }
 }

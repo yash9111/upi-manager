@@ -1,0 +1,1070 @@
+[
+    {
+        "id": "02a4068c-b8ec-4811-98f6-1e300c2aeee7",
+        "totalAmount": 15.0,
+        "myShare": 15.0,
+        "category": "Health",
+        "note": "Health",
+        "isShared": false,
+        "createdAt": "2026-07-02T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "03318b3a-057a-40ef-a085-ed182f51b38c",
+        "totalAmount": 270.0,
+        "myShare": 270.0,
+        "category": "Food",
+        "note": "Food",
+        "isShared": false,
+        "createdAt": "2026-06-14T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "057a7b61-447d-4821-b49b-9dca9b5de1d6",
+        "totalAmount": 36.0,
+        "myShare": 36.0,
+        "category": "Travel",
+        "note": "Travel",
+        "isShared": false,
+        "createdAt": "2026-05-06T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "06562aa6-ecd5-4233-a3bb-670805c1f217",
+        "totalAmount": 40.0,
+        "myShare": 40.0,
+        "category": "Travel",
+        "note": "Travel",
+        "isShared": false,
+        "createdAt": "2026-06-21T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "068d41e0-f3df-41d6-a964-109c9b02920f",
+        "totalAmount": 60.0,
+        "myShare": 60.0,
+        "category": "Food",
+        "note": "Food",
+        "isShared": false,
+        "createdAt": "2026-06-12T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "06c9a560-b01e-49cc-8d8f-7daa8f2461d2",
+        "totalAmount": 1300.0,
+        "myShare": 1300.0,
+        "category": "trip",
+        "note": "trip",
+        "isShared": false,
+        "createdAt": "2026-07-12T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "072ea9c5-16a7-4e82-adfb-3a1bb96ddde1",
+        "totalAmount": 17.0,
+        "myShare": 17.0,
+        "category": "Food",
+        "note": "Food",
+        "isShared": false,
+        "createdAt": "2026-06-19T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "074e3b00-4d19-4f67-8d33-54c02d728cb4",
+        "totalAmount": 45.0,
+        "myShare": 45.0,
+        "category": "Food",
+        "note": "yogabar",
+        "isShared": false,
+        "createdAt": "2026-05-09T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "074ec39a-f348-4c7e-9918-15af4bfbef72",
+        "totalAmount": 20.0,
+        "myShare": 20.0,
+        "category": "Travel",
+        "note": "Travel",
+        "isShared": false,
+        "createdAt": "2026-05-11T22:10:46.339",
+        "participants": []
+    },
+    {
+        "id": "07ee0ad4-3d71-4228-a5d4-b2478016d3eb",
+        "totalAmount": 50.0,
+        "myShare": 50.0,
+        "category": "Entertainment",
+        "note": "Entertainment",
+        "isShared": false,
+        "createdAt": "2026-07-03T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "0928c435-8dc4-452a-ab01-3a9ea20da4bf",
+        "totalAmount": 80.0,
+        "myShare": 80.0,
+        "category": "Food",
+        "note": "Food",
+        "isShared": false,
+        "createdAt": "2026-06-19T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "0ae7227b-60e0-43d8-ad7a-156297cbc9c5",
+        "totalAmount": 85.0,
+        "myShare": 85.0,
+        "category": "Food",
+        "note": "lunch",
+        "isShared": false,
+        "createdAt": "2026-05-05T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "0c73a12d-55e6-4f7b-b00c-dd8d087bd2ee",
+        "totalAmount": 28.0,
+        "myShare": 28.0,
+        "category": "Food",
+        "note": "Food",
+        "isShared": false,
+        "createdAt": "2026-06-16T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "0ef3b06c-164a-4fd1-8c4c-5ba032c66825",
+        "totalAmount": 74.0,
+        "myShare": 24.666666666666668,
+        "category": "Travel",
+        "note": "auto",
+        "isShared": true,
+        "createdAt": "2026-05-13T15:40:10.142",
+        "participants": [
+            {
+                "id": "bd9343f4-a4d7-407a-a72f-d2f0fe7c308d",
+                "name": "alakh",
+                "amount": 24.666666666666668,
+                "isSettled": true
+            },
+            {
+                "id": "2476cc11-218d-4a6f-8410-aa9117d4db47",
+                "name": "anshul",
+                "amount": 24.666666666666668,
+                "isSettled": true
+            }
+        ]
+    },
+    {
+        "id": "10bb94bf-997f-4190-a5b3-58727b6e6f58",
+        "totalAmount": 50.0,
+        "myShare": 50.0,
+        "category": "Food",
+        "note": "Food",
+        "isShared": false,
+        "createdAt": "2026-05-20T20:55:00.643",
+        "participants": []
+    },
+    {
+        "id": "10d9cf3f-f9c8-4ca5-af2e-8eeff671d2e8",
+        "totalAmount": 20.0,
+        "myShare": 20.0,
+        "category": "Food",
+        "note": "Food",
+        "isShared": false,
+        "createdAt": "2026-05-13T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "10fe3ac9-2f77-49db-89ad-dc580b8f4f3f",
+        "totalAmount": 160.0,
+        "myShare": 160.0,
+        "category": "Food",
+        "note": "Food",
+        "isShared": false,
+        "createdAt": "2026-06-20T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "12df3ab1-5a48-4471-a370-8da33407536f",
+        "totalAmount": 34.0,
+        "myShare": 34.0,
+        "category": "Food",
+        "note": "milk",
+        "isShared": false,
+        "createdAt": "2026-06-16T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "14a4c8fa-d58e-4159-a3c9-bab0161693b5",
+        "totalAmount": 2400.0,
+        "myShare": 2400.0,
+        "category": "Health",
+        "note": "protine",
+        "isShared": false,
+        "createdAt": "2026-07-01T17:56:10.242",
+        "participants": []
+    },
+    {
+        "id": "14c7e2dd-74e4-46cd-8baf-3e5f3e6e5d2c",
+        "totalAmount": 230.0,
+        "myShare": 230.0,
+        "category": "Food",
+        "note": "dinner",
+        "isShared": false,
+        "createdAt": "2026-05-06T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "1532ba7a-9d94-453a-b536-c558123a3641",
+        "totalAmount": 324.0,
+        "myShare": 324.0,
+        "category": "Health",
+        "note": "reatine",
+        "isShared": false,
+        "createdAt": "2026-07-01T17:58:08.811",
+        "participants": []
+    },
+    {
+        "id": "16622d76-44f1-41c4-8e86-8966f5e7f62c",
+        "totalAmount": 90.0,
+        "myShare": 90.0,
+        "category": "Miscellaneous",
+        "note": "lock and chain",
+        "isShared": false,
+        "createdAt": "2026-06-13T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "172a543f-8297-4b41-a4d7-e7d5f51e7731",
+        "totalAmount": 70.0,
+        "myShare": 70.0,
+        "category": "Food",
+        "note": "lunch",
+        "isShared": false,
+        "createdAt": "2026-05-06T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "192c5856-83d1-4d1a-927f-12cbba7de8a1",
+        "totalAmount": 15.0,
+        "myShare": 15.0,
+        "category": "Health",
+        "note": "Health",
+        "isShared": false,
+        "createdAt": "2026-06-25T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "1955258b-b692-480e-aed1-57ab4b470cd6",
+        "totalAmount": 65.0,
+        "myShare": 65.0,
+        "category": "Travel",
+        "note": "Travel",
+        "isShared": false,
+        "createdAt": "2026-07-01T17:31:28.627",
+        "participants": []
+    },
+    {
+        "id": "1a29d3ff-3094-41bb-92cb-183d457f391c",
+        "totalAmount": 190.0,
+        "myShare": 190.0,
+        "category": "Shopping",
+        "note": "Shopping",
+        "isShared": false,
+        "createdAt": "2026-06-12T13:31:18.058",
+        "participants": []
+    },
+    {
+        "id": "1a9119b9-3ee2-4e42-b8c6-83a2d69cbbee",
+        "totalAmount": 15.0,
+        "myShare": 15.0,
+        "category": "Health",
+        "note": "Health",
+        "isShared": false,
+        "createdAt": "2026-06-26T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "1ad1e771-1ecc-4082-ad23-44f1e2de269e",
+        "totalAmount": 110.0,
+        "myShare": 110.0,
+        "category": "Food",
+        "note": "Food",
+        "isShared": false,
+        "createdAt": "2026-07-02T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "1b76170a-2faf-490b-941e-3e19c6565ffd",
+        "totalAmount": 30.0,
+        "myShare": 30.0,
+        "category": "Food",
+        "note": "Food",
+        "isShared": false,
+        "createdAt": "2026-06-15T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "1cba7766-fcfa-4cf9-8565-ec6283458f84",
+        "totalAmount": 30.0,
+        "myShare": 30.0,
+        "category": "Food",
+        "note": "paan",
+        "isShared": false,
+        "createdAt": "2026-05-03T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "207eaa96-e56b-4486-b369-9abafedc3eb9",
+        "totalAmount": 42.0,
+        "myShare": 42.0,
+        "category": "Travel",
+        "note": "Travel",
+        "isShared": false,
+        "createdAt": "2026-05-10T22:22:43.602",
+        "participants": []
+    },
+    {
+        "id": "21a5133a-9520-4dc5-b15e-1d80f2605eb8",
+        "totalAmount": 30.0,
+        "myShare": 30.0,
+        "category": "Travel",
+        "note": "taxi",
+        "isShared": false,
+        "createdAt": "2026-05-04T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "244527ff-f273-4556-8d52-ec967c8c4cf0",
+        "totalAmount": 220.0,
+        "myShare": 220.0,
+        "category": "Haircut",
+        "note": "Haircut",
+        "isShared": false,
+        "createdAt": "2026-05-22T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "24d4ac12-bcbb-49fd-a981-91c430247627",
+        "totalAmount": 120.0,
+        "myShare": 120.0,
+        "category": "Food",
+        "note": "Food",
+        "isShared": false,
+        "createdAt": "2026-05-29T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "2563ec76-dfd0-4d86-9814-c65e6eaced8f",
+        "totalAmount": 30.0,
+        "myShare": 30.0,
+        "category": "Travel",
+        "note": "Travel",
+        "isShared": false,
+        "createdAt": "2026-07-04T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "25d914d5-5e44-4962-bff1-f6ac1794ca42",
+        "totalAmount": 117.0,
+        "myShare": 29.25,
+        "category": "Travel",
+        "note": "Travel",
+        "isShared": true,
+        "createdAt": "2026-06-18T16:38:44.521",
+        "participants": [
+            {
+                "id": "21b43341-3823-417a-bae5-b1b1d1caaf03",
+                "name": "alakh",
+                "amount": 29.25,
+                "isSettled": true
+            },
+            {
+                "id": "15455275-8116-452d-b061-63c0cf45c44a",
+                "name": "anshul",
+                "amount": 29.25,
+                "isSettled": true
+            },
+            {
+                "id": "213a272e-687e-4913-ba91-a77e26e0109e",
+                "name": "br",
+                "amount": 29.25,
+                "isSettled": true
+            }
+        ]
+    },
+    {
+        "id": "2b5e6f53-7797-4100-8bed-90e05da629cb",
+        "totalAmount": 70.0,
+        "myShare": 70.0,
+        "category": "Food",
+        "note": "Food",
+        "isShared": false,
+        "createdAt": "2026-06-22T21:16:12.640",
+        "participants": []
+    },
+    {
+        "id": "2c1b79c4-15ec-4c8b-86cc-bbe5eeba44ea",
+        "totalAmount": 220.0,
+        "myShare": 220.0,
+        "category": "Haircut",
+        "note": "Haircut",
+        "isShared": false,
+        "createdAt": "2026-06-12T13:35:08.554",
+        "participants": []
+    },
+    {
+        "id": "2d0d8b06-cec5-4980-9336-20dc4b2b9896",
+        "totalAmount": 33.0,
+        "myShare": 33.0,
+        "category": "Food",
+        "note": "chai",
+        "isShared": false,
+        "createdAt": "2026-06-15T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "2ffff4b7-a080-428e-a169-0eff1e1c7f5b",
+        "totalAmount": 80.0,
+        "myShare": 80.0,
+        "category": "Travel",
+        "note": "Travel",
+        "isShared": false,
+        "createdAt": "2026-07-06T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "302d0233-da50-4d7b-b209-b1499fc96160",
+        "totalAmount": 64.0,
+        "myShare": 64.0,
+        "category": "Travel",
+        "note": "Travel",
+        "isShared": false,
+        "createdAt": "2026-06-22T21:14:49.566",
+        "participants": []
+    },
+    {
+        "id": "35dd8a75-cd31-4346-9b63-872b588c2564",
+        "totalAmount": 15.0,
+        "myShare": 15.0,
+        "category": "Health",
+        "note": "Health",
+        "isShared": false,
+        "createdAt": "2026-08-03T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "386c5b70-b8a0-4ce1-91cc-2f49046dbadd",
+        "totalAmount": 1896.0,
+        "myShare": 1896.0,
+        "category": "Travel",
+        "note": "Train to pune",
+        "isShared": false,
+        "createdAt": "2026-06-01T15:32:34.847",
+        "participants": []
+    },
+    {
+        "id": "391e6049-6baf-4948-8914-bed7488a56a2",
+        "totalAmount": 27.0,
+        "myShare": 27.0,
+        "category": "Food",
+        "note": "Food",
+        "isShared": false,
+        "createdAt": "2026-06-16T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "3a0af2f7-4116-4888-9aa9-083c405a5ecd",
+        "totalAmount": 50.0,
+        "myShare": 50.0,
+        "category": "Travel",
+        "note": "Travel",
+        "isShared": false,
+        "createdAt": "2026-08-03T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "3c070eb0-065b-4baa-ae85-6c9a585ba263",
+        "totalAmount": 110.0,
+        "myShare": 110.0,
+        "category": "Food",
+        "note": "Food",
+        "isShared": false,
+        "createdAt": "2026-07-04T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "3d6350f7-7139-43af-a453-a0ee75b391f5",
+        "totalAmount": 90.0,
+        "myShare": 90.0,
+        "category": "Food",
+        "note": "lunch",
+        "isShared": false,
+        "createdAt": "2026-05-04T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "3e11c1fa-2236-4bed-a069-d43ebacf8a74",
+        "totalAmount": 37.0,
+        "myShare": 37.0,
+        "category": "Travel",
+        "note": "Travel",
+        "isShared": false,
+        "createdAt": "2026-05-06T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "3f69cec6-fd41-48db-8c1f-335457be9060",
+        "totalAmount": 60.0,
+        "myShare": 60.0,
+        "category": "Travel",
+        "note": "Travel",
+        "isShared": false,
+        "createdAt": "2026-06-23T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "425237bd-a10f-4b95-a082-0522af02d2b0",
+        "totalAmount": 15.0,
+        "myShare": 15.0,
+        "category": "Health",
+        "note": "Health",
+        "isShared": false,
+        "createdAt": "2026-06-23T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "433b882b-67d1-4a11-a626-b70ad50adc82",
+        "totalAmount": 20.0,
+        "myShare": 20.0,
+        "category": "Food",
+        "note": "Vada pav",
+        "isShared": false,
+        "createdAt": "2026-05-09T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "438cbb0e-2fb6-4287-bb9d-89bf474bc3e2",
+        "totalAmount": 750.0,
+        "myShare": 750.0,
+        "category": "Bills",
+        "note": "wifi",
+        "isShared": false,
+        "createdAt": "2026-05-27T19:18:36.620",
+        "participants": []
+    },
+    {
+        "id": "43b1b875-6672-438d-a5c3-ea675ba8d25a",
+        "totalAmount": 200.0,
+        "myShare": 200.0,
+        "category": "Food",
+        "note": "Food",
+        "isShared": false,
+        "createdAt": "2026-06-21T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "451a2539-3e37-420a-9626-f073efe2ebc0",
+        "totalAmount": 51.0,
+        "myShare": 51.0,
+        "category": "Food",
+        "note": "magic pin momo",
+        "isShared": false,
+        "createdAt": "2026-05-04T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "45cb9875-d2aa-49f0-95fe-9ad4a1c44652",
+        "totalAmount": 35.0,
+        "myShare": 35.0,
+        "category": "Health",
+        "note": "Health",
+        "isShared": false,
+        "createdAt": "2026-07-03T20:57:55.473",
+        "participants": []
+    },
+    {
+        "id": "49ab9f2f-0daf-48fa-9dcc-d00fd85d878a",
+        "totalAmount": 500.0,
+        "myShare": 500.0,
+        "category": "Shopping",
+        "note": "Shopping",
+        "isShared": false,
+        "createdAt": "2026-05-20T20:55:24.549",
+        "participants": []
+    },
+    {
+        "id": "49dc69e7-3d87-4271-861d-85d32a811591",
+        "totalAmount": 750.0,
+        "myShare": 750.0,
+        "category": "Bills",
+        "note": "Bills",
+        "isShared": false,
+        "createdAt": "2026-06-27T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "4ad0d302-e021-4e29-be1a-427269ea4fca",
+        "totalAmount": 3200.0,
+        "myShare": 3200.0,
+        "category": "Food",
+        "note": "party",
+        "isShared": false,
+        "createdAt": "2026-05-23T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "4d4951a1-8442-478a-ae88-63c2023e14ce",
+        "totalAmount": 20.0,
+        "myShare": 20.0,
+        "category": "Travel",
+        "note": "Travel",
+        "isShared": false,
+        "createdAt": "2026-05-06T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "4db83ff7-7c50-4cd3-9eb2-fae9a1fb7151",
+        "totalAmount": 29.0,
+        "myShare": 29.0,
+        "category": "Travel",
+        "note": "Travel",
+        "isShared": false,
+        "createdAt": "2026-05-04T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "4efffd59-f876-48ca-8788-005e81e0b877",
+        "totalAmount": 370.0,
+        "myShare": 370.0,
+        "category": "Food",
+        "note": "Food",
+        "isShared": false,
+        "createdAt": "2026-05-24T23:09:13.211",
+        "participants": []
+    },
+    {
+        "id": "52569021-ad35-4ef1-a670-cba72bd4138e",
+        "totalAmount": 300.0,
+        "myShare": 300.0,
+        "category": "Bills",
+        "note": "Bills",
+        "isShared": false,
+        "createdAt": "2026-06-17T18:24:56.843",
+        "participants": []
+    },
+    {
+        "id": "52943a0f-cc02-44b4-9e1c-73117028658f",
+        "totalAmount": 66.0,
+        "myShare": 66.0,
+        "category": "Travel",
+        "note": "Travel",
+        "isShared": false,
+        "createdAt": "2026-05-05T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "548ca825-b895-46cb-b889-bbec63f8324c",
+        "totalAmount": 220.0,
+        "myShare": 220.0,
+        "category": "Food",
+        "note": "ice cream",
+        "isShared": false,
+        "createdAt": "2026-06-09T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "54e241bf-a039-401e-adf5-3592a54deb39",
+        "totalAmount": 40.0,
+        "myShare": 40.0,
+        "category": "Food",
+        "note": "mango shake",
+        "isShared": false,
+        "createdAt": "2026-05-02T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "58fff0cf-1407-4d5b-b74a-e8f7bc99249b",
+        "totalAmount": 30.0,
+        "myShare": 30.0,
+        "category": "Food",
+        "note": "Food",
+        "isShared": false,
+        "createdAt": "2026-08-02T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "593cc604-02d6-4fb7-a463-7d106f9e27d7",
+        "totalAmount": 105.0,
+        "myShare": 105.0,
+        "category": "Shopping",
+        "note": "Shopping",
+        "isShared": false,
+        "createdAt": "2026-05-17T20:00:23.932",
+        "participants": []
+    },
+    {
+        "id": "599adfb1-72c7-4a82-9d9d-031acfbbd559",
+        "totalAmount": 47.0,
+        "myShare": 47.0,
+        "category": "Food",
+        "note": "happident",
+        "isShared": false,
+        "createdAt": "2026-05-09T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "5a0333d1-73e5-4d55-a3a2-31fbb11737af",
+        "totalAmount": 20.0,
+        "myShare": 20.0,
+        "category": "Food",
+        "note": "chai",
+        "isShared": false,
+        "createdAt": "2026-05-02T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "5a1d2b45-8c86-40c9-892f-df163791c485",
+        "totalAmount": 36.0,
+        "myShare": 36.0,
+        "category": "Travel",
+        "note": "Travel",
+        "isShared": false,
+        "createdAt": "2026-05-08T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "5b01b292-bca4-44b5-b984-ab896740837e",
+        "totalAmount": 110.0,
+        "myShare": 110.0,
+        "category": "Food",
+        "note": "Food",
+        "isShared": false,
+        "createdAt": "2026-08-04T16:41:27.941",
+        "participants": []
+    },
+    {
+        "id": "5ca2ca9d-c05d-4f51-a284-336c0ec50547",
+        "totalAmount": 10.0,
+        "myShare": 10.0,
+        "category": "Food",
+        "note": "Food",
+        "isShared": false,
+        "createdAt": "2026-05-09T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "5f7b980c-8125-4d4c-8511-bbf4fc432a08",
+        "totalAmount": 70.0,
+        "myShare": 70.0,
+        "category": "Food",
+        "note": "Food",
+        "isShared": false,
+        "createdAt": "2026-07-01T15:45:34.098",
+        "participants": []
+    },
+    {
+        "id": "6173a1ce-9503-454a-93d7-5c4d9a5d9597",
+        "totalAmount": 157.0,
+        "myShare": 157.0,
+        "category": "Food",
+        "note": "Food",
+        "isShared": false,
+        "createdAt": "2026-06-14T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "66c1171f-5ec6-405a-8056-c0aade40d380",
+        "totalAmount": 86.0,
+        "myShare": 86.0,
+        "category": "Food",
+        "note": "icecream",
+        "isShared": false,
+        "createdAt": "2026-05-09T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "685d60fd-9943-4e86-8967-d33e66fa8051",
+        "totalAmount": 40.0,
+        "myShare": 40.0,
+        "category": "Food",
+        "note": "Food",
+        "isShared": false,
+        "createdAt": "2026-06-14T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "68c2134c-9abe-4557-abc0-ca7c54c20b7e",
+        "totalAmount": 80.0,
+        "myShare": 80.0,
+        "category": "Miscellaneous",
+        "note": "Miscellaneous",
+        "isShared": false,
+        "createdAt": "2026-06-12T13:34:20.541",
+        "participants": []
+    },
+    {
+        "id": "6b07f92c-85e7-4a45-bbe3-b4cc3562b25b",
+        "totalAmount": 300.0,
+        "myShare": 300.0,
+        "category": "Shopping",
+        "note": "Shopping",
+        "isShared": false,
+        "createdAt": "2026-05-16T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "6b848a48-9c7e-41fa-ac80-579187aba1a4",
+        "totalAmount": 530.0,
+        "myShare": 530.0,
+        "category": "Food",
+        "note": "namkeen n all",
+        "isShared": false,
+        "createdAt": "2026-06-11T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "6d4651cd-99c9-46ee-aa7e-d5c593b166aa",
+        "totalAmount": 113.0,
+        "myShare": 28.25,
+        "category": "Travel",
+        "note": "Travel",
+        "isShared": true,
+        "createdAt": "2026-08-04T16:42:51.654",
+        "participants": [
+            {
+                "id": "1a225373-539f-45e0-ba67-52053cc5c089",
+                "name": "Vibhansh",
+                "amount": 28.25,
+                "isSettled": true
+            },
+            {
+                "id": "c4526b6b-fc6f-40f4-89c4-069e6b34e4f1",
+                "name": "alakh",
+                "amount": 28.25,
+                "isSettled": true
+            },
+            {
+                "id": "d9d7bbff-654e-418e-bb5c-dcd6489fb381",
+                "name": "anshul",
+                "amount": 28.25,
+                "isSettled": true
+            }
+        ]
+    },
+    {
+        "id": "6f6f8987-9bee-4cb1-a328-1f74137823a6",
+        "totalAmount": 65.0,
+        "myShare": 65.0,
+        "category": "Food",
+        "note": "Food",
+        "isShared": false,
+        "createdAt": "2026-05-13T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "7016d3d8-e9b1-4d00-8a2c-ce75957fb83d",
+        "totalAmount": 12.0,
+        "myShare": 12.0,
+        "category": "Food",
+        "note": "Food",
+        "isShared": false,
+        "createdAt": "2026-08-03T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "713f5d2b-f38b-481b-ada3-143272c811df",
+        "totalAmount": 151.0,
+        "myShare": 151.0,
+        "category": "Bills",
+        "note": "Swiggy instamart",
+        "isShared": false,
+        "createdAt": "2026-05-01T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "719e6237-c6b9-4f42-892e-d9557d5d8c9c",
+        "totalAmount": 30.0,
+        "myShare": 30.0,
+        "category": "Food",
+        "note": "Food",
+        "isShared": false,
+        "createdAt": "2026-06-22T21:16:29.637",
+        "participants": []
+    },
+    {
+        "id": "7441bbd5-27dc-41a8-8542-3f2703588831",
+        "totalAmount": 498.0,
+        "myShare": 498.0,
+        "category": "Shopping",
+        "note": "Reliance smart",
+        "isShared": false,
+        "createdAt": "2026-06-17T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "74e6b7f6-ec22-4b16-a288-b815510a50d0",
+        "totalAmount": 60.0,
+        "myShare": 60.0,
+        "category": "Food",
+        "note": "Food",
+        "isShared": false,
+        "createdAt": "2026-06-12T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "767546a9-6554-47d8-bb40-d6c2ff7dcd5a",
+        "totalAmount": 270.0,
+        "myShare": 270.0,
+        "category": "Food",
+        "note": "Food",
+        "isShared": false,
+        "createdAt": "2026-06-02T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "776879a0-e9a2-4049-854d-96272d1ae302",
+        "totalAmount": 30.0,
+        "myShare": 30.0,
+        "category": "Food",
+        "note": "Food",
+        "isShared": false,
+        "createdAt": "2026-07-06T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "77e495b9-ad0d-45eb-bbea-8b081c36c8e1",
+        "totalAmount": 125.0,
+        "myShare": 125.0,
+        "category": "Miscellaneous",
+        "note": "cake",
+        "isShared": false,
+        "createdAt": "2026-06-23T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "7817082f-0b35-4d48-85ee-fae6a4ae8d03",
+        "totalAmount": 34.0,
+        "myShare": 34.0,
+        "category": "Travel",
+        "note": "Travel",
+        "isShared": false,
+        "createdAt": "2026-06-17T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "7817c948-6dfa-4355-9356-0375d98264cd",
+        "totalAmount": 8500.0,
+        "myShare": 8500.0,
+        "category": "Rent",
+        "note": "Rent",
+        "isShared": false,
+        "createdAt": "2026-07-01T20:31:59.261",
+        "participants": []
+    },
+    {
+        "id": "799c3544-7ac0-43e2-a406-916b8caec60e",
+        "totalAmount": 335.0,
+        "myShare": 335.0,
+        "category": "Shopping",
+        "note": "Shopping",
+        "isShared": false,
+        "createdAt": "2026-06-12T13:34:48.768",
+        "participants": []
+    },
+    {
+        "id": "7ab55920-d03f-486a-af79-9ea1a7f4570b",
+        "totalAmount": 2800.0,
+        "myShare": 2800.0,
+        "category": "Skin and Hair care",
+        "note": "Skin and Hair care",
+        "isShared": false,
+        "createdAt": "2026-08-02T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "7d8a471d-e54a-48fd-a1bf-0aff9647d1d6",
+        "totalAmount": 85.0,
+        "myShare": 85.0,
+        "category": "Food",
+        "note": "lunch",
+        "isShared": false,
+        "createdAt": "2026-05-07T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "7f28b2b9-1f0e-4691-90ef-77882168f3f4",
+        "totalAmount": 3790.0,
+        "myShare": 1895.0,
+        "category": "Travel",
+        "note": "bus",
+        "isShared": true,
+        "createdAt": "2026-05-13T15:39:19.296",
+        "participants": [
+            {
+                "id": "f7a91fa0-192e-438d-83cc-d841b3262e50",
+                "name": "alakh",
+                "amount": 1895.0,
+                "isSettled": true
+            }
+        ]
+    },
+    {
+        "id": "81064c76-e76e-4295-950d-d65a5d977881",
+        "totalAmount": 225.0,
+        "myShare": 225.0,
+        "category": "Shopping",
+        "note": "shorts",
+        "isShared": false,
+        "createdAt": "2026-05-09T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "8133892f-cdf8-4d4e-85df-c790b2ae2c27",
+        "totalAmount": 25.0,
+        "myShare": 25.0,
+        "category": "Food",
+        "note": "dabeli",
+        "isShared": false,
+        "createdAt": "2026-05-09T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "813f1858-4331-4678-a9d7-ba952e95c7fe",
+        "totalAmount": 30.0,
+        "myShare": 30.0,
+        "category": "Travel",
+        "note": "Travel",
+        "isShared": false,
+        "createdAt": "2026-05-06T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "838ba400-4ae9-46c2-ab83-fcdb4470e2d6",
+        "totalAmount": 364.0,
+        "myShare": 364.0,
+        "category": "Food",
+        "note": "dinner",
+        "isShared": false,
+        "createdAt": "2026-06-23T00:00:00.000",
+        "participants": []
+    },
+    {
+        "id": "849aee40-179e-4ab3-ac56-d47441ac2029",
+        "totalAmount": 40.0,
+        "myShare": 40.0,
+        "category": "Food",
+        "note": "Food",
+        "isShared": false,
+        "createdAt": "2026-06-27T10:23:46.705",
+        "participants": []
+    },
+    {
+        "id": "865d573f-5796-4005-8cfb-0d9f2ebe763d",
+        "totalAmount": 247.0,
+        "myShare": 247.0,
+        "category": "Shopping",
+        "note": "shampoo",
+        "isShared": false,
+        "createdAt": "2026-07-01T17:56:18",
+        "participants": []
+    }
+]
