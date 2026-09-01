@@ -72,7 +72,7 @@ Future<void> main() async {
 
   const matrixSize = 4000;
 
-  const iterations = 10;
+  const iterations = 8;
 
   print('======================================');
   print('       DART CPU + RAM STRESS TEST');
