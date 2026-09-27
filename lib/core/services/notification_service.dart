@@ -1,8 +1,9 @@
 import 'package:flutter/services.dart';
 
 class NotificationService {
-  static const MethodChannel _channel =
-      MethodChannel('upi_tracker/incoming_sms');
+  static const MethodChannel _channel = MethodChannel(
+    'upi_tracker/incoming_sms',
+  );
 
   Future<bool> requestPermission() async {
     final result = await _channel.invokeMethod<bool>(
@@ -13,9 +14,7 @@ class NotificationService {
   }
 
   Future<bool> areNotificationsEnabled() async {
-    final result = await _channel.invokeMethod<bool>(
-      'areNotificationsEnabled',
-    );
+    final result = await _channel.invokeMethod<bool>('areNotificationsEnabled');
 
     return result ?? false;
   }
@@ -26,42 +25,69 @@ class NotificationService {
     required String body,
     required String transactionId,
   }) async {
-    final result = await _channel.invokeMethod<bool>(
-      'showTransactionNotification',
-      {
-        'notificationId': notificationId,
-        'title': title,
-        'body': body,
-        'transactionId': transactionId,
-      },
-    );
+    final result = await _channel
+        .invokeMethod<bool>('showTransactionNotification', {
+          'notificationId': notificationId,
+          'title': title,
+          'body': body,
+          'transactionId': transactionId,
+        });
 
     return result ?? false;
   }
 
   Future<String?> getInitialTransactionId() async {
-    return _channel.invokeMethod<String>(
-      'getInitialTransactionId',
-    );
+    return _channel.invokeMethod<String>('getInitialTransactionId');
   }
 
-  void setNotificationTapHandler(
-    void Function(String transactionId) handler,
-  ) {
+  void setNotificationTapHandler(void Function(String transactionId) handler) {
     _channel.setMethodCallHandler((call) async {
       if (call.method != 'notificationTapped') {
         return;
       }
 
-      final transactionId =
-          call.arguments as String?;
+      final transactionId = call.arguments as String?;
 
-      if (transactionId == null ||
-          transactionId.isEmpty) {
+      if (transactionId == null || transactionId.isEmpty) {
         return;
       }
 
       handler(transactionId);
     });
+  }
+
+  Future<bool> isNotificationAccessEnabled() async {
+    final result = await _channel.invokeMethod<bool>(
+      'isNotificationAccessEnabled',
+    );
+
+    return result ?? false;
+  }
+
+  Future<void> openNotificationAccessSettings() async {
+    await _channel.invokeMethod('openNotificationAccessSettings');
+  }
+
+  Future<List<Map<String, dynamic>>> getPendingGPayNotifications() async {
+    final result = await _channel.invokeMethod<List<dynamic>>(
+      'getPendingGPayNotifications',
+    );
+
+    if (result == null) {
+      return [];
+    }
+
+    return result
+        .map((item) => Map<String, dynamic>.from(item as Map))
+        .toList();
+  }
+
+  Future<bool> acknowledgeGPayNotification(String id) async {
+    final result = await _channel.invokeMethod<bool>(
+      'acknowledgeGPayNotification',
+      {'id': id},
+    );
+
+    return result ?? false;
   }
 }

@@ -31,13 +31,16 @@ class ImportedTransactionModelAdapter
       importedAt: fields[10] as DateTime,
       rawSms: fields[11] as String,
       status: fields[12] as String,
+      source: fields[13] as String,
+      splitGroup: fields[14] as String?,
+      splitDescription: fields[15] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, ImportedTransactionModel obj) {
     writer
-      ..writeByte(13)
+      ..writeByte(16)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -63,7 +66,13 @@ class ImportedTransactionModelAdapter
       ..writeByte(11)
       ..write(obj.rawSms)
       ..writeByte(12)
-      ..write(obj.status);
+      ..write(obj.status)
+      ..writeByte(13)
+      ..write(obj.source)
+      ..writeByte(14)
+      ..write(obj.splitGroup)
+      ..writeByte(15)
+      ..write(obj.splitDescription);
   }
 
   @override

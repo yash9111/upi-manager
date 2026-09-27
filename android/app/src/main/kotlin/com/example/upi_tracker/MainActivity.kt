@@ -16,7 +16,7 @@ import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 
 import org.json.JSONArray
-
+import android.provider.Settings
 class MainActivity : FlutterActivity() {
 private lateinit var smsChannel: MethodChannel
 
@@ -100,6 +100,29 @@ private var initialTransactionId: String? = null
 
                     result.success(removed)
                 }
+
+                "getPendingGPayNotifications" -> {
+    result.success(
+        getPendingGPayNotifications()
+    )
+}
+
+"acknowledgeGPayNotification" -> {
+    val id = call.argument<String>("id")
+
+    if (id.isNullOrEmpty()) {
+        result.error(
+            "INVALID_ID",
+            "GPay notification id is required",
+            null,
+        )
+        return@setMethodCallHandler
+    }
+
+    result.success(
+        acknowledgeGPayNotification(id)
+    )
+}
                 "getInitialTransactionId" -> {
                     result.success(initialTransactionId)
                     initialTransactionId = null
@@ -168,12 +191,139 @@ private var initialTransactionId: String? = null
                     result.success(shown)
                 }
 
+                "isNotificationAccessEnabled" -> {
+                    val enabled = isNotificationAccessEnabled()
+                    result.success(enabled)
+                }
+                
+                "openNotificationAccessSettings" -> {
+                    openNotificationAccessSettings()
+                    result.success(null)
+                }
                 else -> {
                     result.notImplemented()
                 }
             }
         }
     }
+    private fun getPendingGPayNotifications(): List<Map<String, Any>> {
+    val preferences =
+        getSharedPreferences(
+            "upi_tracker_gpay_queue",
+            Context.MODE_PRIVATE,
+        )
+
+    val stored =
+        preferences.getString(
+            "pending_gpay_notifications",
+            null,
+        )
+
+    if (stored.isNullOrEmpty()) {
+        return emptyList()
+    }
+
+    return try {
+        val jsonArray = JSONArray(stored)
+
+        buildList {
+            for (index in 0 until jsonArray.length()) {
+                val item =
+                    jsonArray.getJSONObject(index)
+
+                add(
+                    mapOf(
+                        "id" to item.optString("id"),
+                        "title" to item.optString("title"),
+                        "text" to item.optString("text"),
+                        "bigText" to item.optString("bigText"),
+                        "timestamp" to item.optLong("timestamp"),
+                    )
+                )
+            }
+        }
+    } catch (_: Exception) {
+        emptyList()
+    }
+}
+
+private fun acknowledgeGPayNotification(
+    id: String,
+): Boolean {
+
+    val preferences =
+        getSharedPreferences(
+            "upi_tracker_gpay_queue",
+            Context.MODE_PRIVATE,
+        )
+
+    val stored =
+        preferences.getString(
+            "pending_gpay_notifications",
+            null,
+        )
+
+    if (stored.isNullOrEmpty()) {
+        return false
+    }
+
+    return try {
+        val oldQueue = JSONArray(stored)
+        val newQueue = JSONArray()
+
+        var removed = false
+
+        for (index in 0 until oldQueue.length()) {
+            val item =
+                oldQueue.getJSONObject(index)
+
+            if (item.optString("id") == id) {
+                removed = true
+                continue
+            }
+
+            newQueue.put(item)
+        }
+
+        if (removed) {
+            preferences.edit()
+                .putString(
+                    "pending_gpay_notifications",
+                    newQueue.toString(),
+                )
+                .apply()
+        }
+
+        removed
+    } catch (_: Exception) {
+        false
+    }
+}
+private fun isNotificationAccessEnabled(): Boolean {
+    val enabledListeners =
+        android.provider.Settings.Secure.getString(
+            contentResolver,
+            "enabled_notification_listeners"
+        )
+
+    if (enabledListeners.isNullOrEmpty()) {
+        return false
+    }
+
+    return enabledListeners
+        .split(":")
+        .any { componentName ->
+            componentName.startsWith(packageName)
+        }
+}
+
+private fun openNotificationAccessSettings() {
+    val intent = Intent(
+        Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS
+    )
+
+    startActivity(intent)
+}
     override fun onNewIntent(intent: Intent) {
     super.onNewIntent(intent)
 

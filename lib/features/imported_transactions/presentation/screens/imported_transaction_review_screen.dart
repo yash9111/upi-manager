@@ -116,7 +116,9 @@ class _ImportedTransactionReviewScreenState
                   ),
                   style: OutlinedButton.styleFrom(
                     foregroundColor: AppColors.danger,
-                    side: BorderSide(color: AppColors.danger.withOpacity(.35)),
+                    side: BorderSide(
+                      color: AppColors.danger.withValues(alpha: .35),
+                    ),
                     padding: const EdgeInsets.symmetric(vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),
@@ -161,7 +163,7 @@ class _ImportedTransactionReviewScreenState
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(.15),
+                  color: Colors.white.withValues(alpha: .15),
                   borderRadius: BorderRadius.circular(14),
                 ),
                 child: Icon(
@@ -231,9 +233,9 @@ class _ImportedTransactionReviewScreenState
       width: double.infinity,
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
-        color: AppColors.success.withOpacity(.07),
+        color: AppColors.success.withValues(alpha: .07),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: AppColors.success.withOpacity(.18)),
+        border: Border.all(color: AppColors.success.withValues(alpha: .18)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -241,7 +243,7 @@ class _ImportedTransactionReviewScreenState
           Container(
             padding: const EdgeInsets.all(9),
             decoration: BoxDecoration(
-              color: AppColors.success.withOpacity(.12),
+              color: AppColors.success.withValues(alpha: .12),
               shape: BoxShape.circle,
             ),
             child: const Icon(
@@ -291,6 +293,17 @@ class _ImportedTransactionReviewScreenState
             'Transaction Date',
             _formatDate(transaction.transactionDate),
           ),
+          if (transaction.source == ImportedTransactionSource.gpay) ...[
+            _detailRow('Source', 'Google Pay'),
+
+            if (transaction.splitGroup != null &&
+                transaction.splitGroup!.trim().isNotEmpty)
+              _detailRow('Split Group', transaction.splitGroup!),
+
+            if (transaction.splitDescription != null &&
+                transaction.splitDescription!.trim().isNotEmpty)
+              _detailRow('Description', transaction.splitDescription!),
+          ],
 
           if (transaction.bankName != null &&
               transaction.bankName!.trim().isNotEmpty)
@@ -426,17 +439,18 @@ class _ImportedTransactionReviewScreenState
   // ---------------------------------------------------------------------------
   // ORIGINAL SMS
   // ---------------------------------------------------------------------------
-
   Widget _buildOriginalSms() {
+    final isGPay = widget.transaction.source == ImportedTransactionSource.gpay;
+
     return _section(
-      title: 'Original SMS',
-      icon: Icons.sms_outlined,
+      title: isGPay ? 'Original Google Pay Notification' : 'Original SMS',
+      icon: isGPay ? Icons.account_balance_wallet_outlined : Icons.sms_outlined,
       child: ExpansionTile(
         tilePadding: const EdgeInsets.symmetric(horizontal: 4),
         childrenPadding: const EdgeInsets.fromLTRB(4, 0, 4, 12),
-        title: const Text(
-          'View original message',
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+        title: Text(
+          isGPay ? 'View original notification' : 'View original message',
+          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
         children: [
           Container(
@@ -455,7 +469,6 @@ class _ImportedTransactionReviewScreenState
       ),
     );
   }
-
   // ---------------------------------------------------------------------------
   // SECTION / DETAIL HELPERS
   // ---------------------------------------------------------------------------

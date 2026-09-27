@@ -12,6 +12,9 @@ import '../../data/services/sms_reader_service.dart';
 import '../../data/services/transaction_sms_parser_service.dart';
 import '../../domain/models/imported_transaction.dart';
 
+import '../../data/services/gpay_split_import_service.dart';
+import '../../data/services/gpay_split_parser_service.dart';
+
 final smsReaderServiceProvider = Provider<SmsReaderService>((ref) {
   return AndroidSmsReaderService();
 });
@@ -48,7 +51,17 @@ final importedTransactionBatchServiceProvider =
         repository: ref.read(importedTransactionRepositoryProvider),
       );
     });
+final gPaySplitParserServiceProvider = Provider<GPaySplitParserService>((ref) {
+  return GPaySplitParserService();
+});
 
+final gPaySplitImportServiceProvider = Provider<GPaySplitImportService>((ref) {
+  return GPaySplitImportService(
+    notificationService: ref.read(notificationServiceProvider),
+    parser: ref.read(gPaySplitParserServiceProvider),
+    repository: ref.read(importedTransactionRepositoryProvider),
+  );
+});
 final importedTransactionsProvider =
     AsyncNotifierProvider<
       ImportedTransactionsNotifier,
@@ -120,6 +133,18 @@ class ImportedTransactionsNotifier
     state = AsyncData(await _load());
 
     return true;
+  }
+
+  Future<int> importPendingGPayNotifications() async {
+    final service = ref.read(gPaySplitImportServiceProvider);
+
+    final importedCount = await service.processPendingNotifications();
+
+    if (importedCount > 0) {
+      state = AsyncData(await _load());
+    }
+
+    return importedCount;
   }
 
   Future<void> markAsProcessed(String id) async {

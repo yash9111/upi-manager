@@ -33,6 +33,16 @@ class _ImportedTransactionsScreenState
               MaterialPageRoute(builder: (_) => const BulkSmsImportScreen()),
             );
           },
+          onTap: () async {
+            final notificationService = ref.read(notificationServiceProvider);
+
+            final enabled = await notificationService
+                .isNotificationAccessEnabled();
+
+            if (!enabled) {
+              await notificationService.openNotificationAccessSettings();
+            }
+          },
           child: const Text(
             'Imported Transactions',
             style: TextStyle(fontWeight: FontWeight.bold),
@@ -47,9 +57,9 @@ class _ImportedTransactionsScreenState
 
           return RefreshIndicator(
             onRefresh: () async {
-              final result = await ref
-                  .read(incomingSmsServiceProvider)
-                  .processPendingSms();
+              await ref
+                  .read(incomingSmsLifecycleServiceProvider)
+                  .processPending();
 
               /*
    * processPendingSms() may have inserted new
@@ -57,23 +67,23 @@ class _ImportedTransactionsScreenState
    *
    * Reload the provider AFTER processing.
    */
-              ref.invalidate(importedTransactionsProvider);
+              // ref.invalidate(importedTransactionsProvider);
 
-              if (!context.mounted) {
-                return;
-              }
+              // if (!context.mounted) {
+              //   return;
+              // }
 
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    'SMS: ${result.totalSms} | '
-                    'Parsed: ${result.parsed} | '
-                    'Imported: ${result.imported} | '
-                    'Duplicates: ${result.duplicates} | '
-                    'Failed: ${result.failed}',
-                  ),
-                ),
-              );
+              // ScaffoldMessenger.of(context).showSnackBar(
+              //   SnackBar(
+              //     content: Text(
+              //       'SMS: ${result.totalSms} | '
+              //       'Parsed: ${result.parsed} | '
+              //       'Imported: ${result.imported} | '
+              //       'Duplicates: ${result.duplicates} | '
+              //       'Failed: ${result.failed}',
+              //     ),
+              //   ),
+              // );
             },
             child: CustomScrollView(
               physics: const AlwaysScrollableScrollPhysics(),
@@ -157,7 +167,9 @@ class _ImportedTransactionsScreenState
           ),
           boxShadow: [
             BoxShadow(
-              color: Theme.of(context).colorScheme.primary.withOpacity(.16),
+              color: Theme.of(
+                context,
+              ).colorScheme.primary.withValues(alpha: .16),
               blurRadius: 18,
               offset: const Offset(0, 8),
             ),
@@ -172,7 +184,7 @@ class _ImportedTransactionsScreenState
                   width: 42,
                   height: 42,
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(.14),
+                    color: Colors.white.withValues(alpha: .14),
                     borderRadius: BorderRadius.circular(14),
                   ),
                   child: const Icon(
@@ -287,7 +299,7 @@ class _ImportedTransactionsScreenState
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 9),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(.10),
+        color: Colors.white.withValues(alpha: .10),
         borderRadius: BorderRadius.circular(14),
       ),
       child: Row(
@@ -350,7 +362,7 @@ class _ImportedTransactionsScreenState
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         scrollDirection: Axis.horizontal,
         itemCount: statuses.length,
-        separatorBuilder: (_, __) => const SizedBox(width: 8),
+        separatorBuilder: (_, _) => const SizedBox(width: 8),
         itemBuilder: (context, index) {
           final item = statuses[index];
 
@@ -379,7 +391,7 @@ class _ImportedTransactionsScreenState
             side: BorderSide(
               color: isSelected
                   ? Colors.transparent
-                  : Colors.black.withOpacity(.07),
+                  : Colors.black.withValues(alpha: .07),
             ),
             onSelected: (_) {
               setState(() {
@@ -420,10 +432,10 @@ class _ImportedTransactionsScreenState
         : Colors.blueGrey.shade600;
 
     final backgroundColor = isDebit
-        ? Colors.red.withOpacity(.07)
+        ? Colors.red.withValues(alpha: .07)
         : isCredit
-        ? Colors.green.withOpacity(.07)
-        : Colors.blueGrey.withOpacity(.07);
+        ? Colors.green.withValues(alpha: .07)
+        : Colors.blueGrey.withValues(alpha: .07);
 
     return Material(
       color: Colors.transparent,
@@ -435,10 +447,10 @@ class _ImportedTransactionsScreenState
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(22),
-            border: Border.all(color: Colors.black.withOpacity(.055)),
+            border: Border.all(color: Colors.black.withValues(alpha: .055)),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(.025),
+                color: Colors.black.withValues(alpha: .025),
                 blurRadius: 10,
                 offset: const Offset(0, 4),
               ),
@@ -494,6 +506,10 @@ class _ImportedTransactionsScreenState
                       children: [
                         _buildStatusBadge(transaction.status),
 
+                        const SizedBox(width: 6),
+
+                        _buildSourceBadge(transaction.source),
+
                         if (_hasCategory(transaction)) ...[
                           const SizedBox(width: 6),
                           Flexible(child: _buildCategoryBadge(transaction)),
@@ -524,7 +540,7 @@ class _ImportedTransactionsScreenState
                     width: 28,
                     height: 28,
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(.035),
+                      color: Colors.black.withValues(alpha: .035),
                       shape: BoxShape.circle,
                     ),
                     child: const Icon(Icons.chevron_right_rounded, size: 18),
@@ -534,6 +550,41 @@ class _ImportedTransactionsScreenState
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildSourceBadge(ImportedTransactionSource source) {
+    final isGPay = source == ImportedTransactionSource.gpay;
+
+    final label = isGPay ? 'GPay' : 'SMS';
+
+    final icon = isGPay
+        ? Icons.account_balance_wallet_outlined
+        : Icons.sms_outlined;
+
+    final color = isGPay ? Colors.blue : Colors.deepPurple;
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: .08),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 12, color: color),
+          const SizedBox(width: 4),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.w700,
+              color: color,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -617,7 +668,7 @@ class _ImportedTransactionsScreenState
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withOpacity(.08),
+        color: color.withValues(alpha: .08),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
@@ -700,7 +751,9 @@ class _ImportedTransactionsScreenState
               width: 78,
               height: 78,
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary.withOpacity(.08),
+                color: Theme.of(
+                  context,
+                ).colorScheme.primary.withValues(alpha: .08),
                 shape: BoxShape.circle,
               ),
               child: Icon(

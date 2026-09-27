@@ -14,9 +14,7 @@ class IncomingSmsLifecycleService with WidgetsBindingObserver {
   void start() {
     WidgetsBinding.instance.addObserver(this);
 
-    // Process anything that arrived while the app
-    // was closed/backgrounded.
-    processPendingSms();
+    processPending();
   }
 
   void dispose() {
@@ -26,11 +24,11 @@ class IncomingSmsLifecycleService with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      processPendingSms();
+      processPending();
     }
   }
 
-  Future<void> processPendingSms() async {
+  Future<void> processPending() async {
     if (_processing) {
       return;
     }
@@ -38,26 +36,25 @@ class IncomingSmsLifecycleService with WidgetsBindingObserver {
     _processing = true;
 
     try {
-      final service = ref.read(incomingSmsServiceProvider);
+      // 1. Process SMS queue.
+      final smsService = ref.read(incomingSmsServiceProvider);
 
-      final result = await service.processPendingSms();
+      final smsResult = await smsService.processPendingSms();
 
-      /*
-     * IncomingSmsService writes directly to the repository/Hive.
-     *
-     * The ImportedTransactionsNotifier does not automatically
-     * know that Hive changed, so refresh its state after
-     * successful processing.
-     */
-      if (result.imported > 0) {
+      // 2. Process GPay queue.
+      final gPayService = ref.read(gPaySplitImportServiceProvider);
+
+      final gPayImported = await gPayService.processPendingNotifications();
+
+      // 3. Refresh UI if anything was imported.
+      if (smsResult.imported > 0 || gPayImported > 0) {
         ref.invalidate(importedTransactionsProvider);
       }
     } catch (_) {
-      /*
-     * Keep the app alive if SMS processing fails.
-     *
-     * Failed native queue items remain available for retry.
-     */
+      // Keep the app alive.
+      //
+      // Failed GPay/SMS items remain available
+      // for retry.
     } finally {
       _processing = false;
     }

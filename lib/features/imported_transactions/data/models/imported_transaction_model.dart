@@ -5,8 +5,7 @@ import '../../domain/models/imported_transaction.dart';
 part 'imported_transaction_model.g.dart';
 
 @HiveType(typeId: 10)
-class ImportedTransactionModel
-    extends HiveObject {
+class ImportedTransactionModel extends HiveObject {
   @HiveField(0)
   final String id;
 
@@ -46,6 +45,14 @@ class ImportedTransactionModel
   @HiveField(12)
   final String status;
 
+  @HiveField(13)
+  final String source;
+
+  @HiveField(14)
+  final String? splitGroup;
+
+  @HiveField(15)
+  final String? splitDescription;
   ImportedTransactionModel({
     required this.id,
     required this.amount,
@@ -60,33 +67,29 @@ class ImportedTransactionModel
     required this.importedAt,
     required this.rawSms,
     required this.status,
+    required this.source,
+    this.splitGroup,
+    this.splitDescription,
   });
 
-  factory ImportedTransactionModel.fromDomain(
-    ImportedTransaction transaction,
-  ) {
+  factory ImportedTransactionModel.fromDomain(ImportedTransaction transaction) {
     return ImportedTransactionModel(
       id: transaction.id,
       amount: transaction.amount,
       type: transaction.type.name,
       merchant: transaction.merchant,
       upiId: transaction.upiId,
-      referenceNumber:
-          transaction.referenceNumber,
-      bankName:
-          transaction.bankName,
-      accountNumber:
-          transaction.accountNumber,
-      availableBalance:
-          transaction.availableBalance,
-      transactionDate:
-          transaction.transactionDate,
-      importedAt:
-          transaction.importedAt,
-      rawSms:
-          transaction.rawSms,
-      status:
-          transaction.status.name,
+      referenceNumber: transaction.referenceNumber,
+      bankName: transaction.bankName,
+      accountNumber: transaction.accountNumber,
+      availableBalance: transaction.availableBalance,
+      transactionDate: transaction.transactionDate,
+      importedAt: transaction.importedAt,
+      rawSms: transaction.rawSms,
+      status: transaction.status.name,
+      source: transaction.source.name,
+      splitGroup: transaction.splitGroup,
+      splitDescription: transaction.splitDescription,
     );
   }
 
@@ -94,39 +97,29 @@ class ImportedTransactionModel
     return ImportedTransaction(
       id: id,
       amount: amount,
-      type:
-          ImportedTransactionType
-              .values
-              .firstWhere(
-        (value) =>
-            value.name == type,
-        orElse: () =>
-            ImportedTransactionType
-                .unknown,
+      type: ImportedTransactionType.values.firstWhere(
+        (value) => value.name == type,
+        orElse: () => ImportedTransactionType.unknown,
       ),
       merchant: merchant,
       upiId: upiId,
-      referenceNumber:
-          referenceNumber,
+      referenceNumber: referenceNumber,
       bankName: bankName,
-      accountNumber:
-          accountNumber,
-      availableBalance:
-          availableBalance,
-      transactionDate:
-          transactionDate,
+      accountNumber: accountNumber,
+      availableBalance: availableBalance,
+      transactionDate: transactionDate,
       importedAt: importedAt,
       rawSms: rawSms,
-      status:
-          ImportedTransactionStatus
-              .values
-              .firstWhere(
-        (value) =>
-            value.name == status,
-        orElse: () =>
-            ImportedTransactionStatus
-                .pending,
+      status: ImportedTransactionStatus.values.firstWhere(
+        (value) => value.name == status,
+        orElse: () => ImportedTransactionStatus.pending,
       ),
+      source: ImportedTransactionSource.values.firstWhere(
+        (value) => value.name == source,
+        orElse: () => ImportedTransactionSource.sms,
+      ),
+      splitGroup: splitGroup,
+      splitDescription: splitDescription,
     );
   }
 }
